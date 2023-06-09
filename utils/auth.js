@@ -2,9 +2,20 @@ import axios from 'axios';
 import { API_KEY as apiKey} from '@env';
 
 export async function createUser(email, password) {
-    const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + apiKey, {
+    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + apiKey
+    const response = await axios.post(url, {
         email: email,
         password: password,
         returnSecureToken: true
     })
+}
+
+export async function login(email, password) {
+    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + apiKey
+    const response = await axios.post(url, {
+        email: email, 
+        password: password,
+        returnSecureToken: true
+    })
+    console.log(response)
 }
