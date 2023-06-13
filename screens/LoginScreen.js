@@ -8,7 +8,7 @@ import { login } from '../utils/auth';
 
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false)
-  const authCtx = useContext(AuthContent)
+  const authCtx = useContext(AuthContext)
 
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true)
@@ -24,15 +24,21 @@ function LoginScreen() {
     }
   }
 
-  return (
-    <>
-      {isAuthenticating ? 
-        <LoadingOverlay />
-        : 
-        <AuthContent isLogin onAuthenticate={loginHandler}/>
-      }
-    </>
-  );
+  if (isAuthenticating) {
+    return <LoadingOverlay message="Logging you in..." />;
+  }
+
+  return <AuthContent isLogin onAuthenticate={loginHandler} />;
+
+  // return (
+  //   <>
+  //     {isAuthenticating ? 
+  //       <LoadingOverlay />
+  //       : 
+  //       <AuthContent isLogin onAuthenticate={loginHandler}/>
+  //     }
+  //   </>
+  // );
 }
 
 export default LoginScreen;
